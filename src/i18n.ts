@@ -1,0 +1,22 @@
+import zh from './zh.json';
+export type Language='en'|'zh';
+export function initialLanguage():Language{
+ const requested=new URLSearchParams(location.search).get('lang');
+ if(requested==='zh'||requested==='en')return requested;
+ try{const saved=localStorage.getItem('field-atlas-language');if(saved==='en'||saved==='zh')return saved;}catch{}
+ return navigator.language.startsWith('zh')?'zh':'en';
+}
+export function translator(language:Language){
+ return (value:unknown):string=>{
+  const text=String(value??'');if(language==='en')return text;
+  const key=text.trim();const translated=(zh as Record<string,string>)[key];
+  if(translated)return text.replace(key,translated);
+  const excluded=key.match(/^(\d+) source records have invalid polygon geometry and are excluded\. Overlap coverage is incomplete\.$/);
+  if(excluded)return excluded[1]+' 条源记录的多边形无效，已被排除。重叠检查覆盖不完整。';
+  if(key.startsWith('Cannot read coordinate row: '))return '无法读取此坐标行：'+key.slice('Cannot read coordinate row: '.length);
+  if(key.startsWith('Overlap analysis unavailable: '))return '暂时无法进行重叠分析：'+key.slice('Overlap analysis unavailable: '.length);
+  if(key.startsWith('Update rejected:'))return '更新未通过验证，已保留上次有效数据。请联系管理员检查源数据。';
+  if(key.startsWith('MME HTTP '))return 'MME 数据源请求失败：'+key.slice(9);
+  return text;
+ };
+}

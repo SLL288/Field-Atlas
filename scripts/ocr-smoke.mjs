@@ -1,0 +1,17 @@
+import {chromium} from 'playwright';
+import assert from 'node:assert/strict';
+const b=await chromium.launch({channel:'chrome'});const img=await b.newPage({viewport:{width:900,height:320}});
+await img.setContent('<body style="background:white;color:black;font:32px monospace;padding:35px;line-height:1.8">341099 806040<br>341555 806321<br>341881 805929<br>UTM 29N</body>');
+await img.screenshot({path:'/tmp/field-atlas-ocr-input.png'});await img.close();
+const p=await b.newPage();await p.goto('http://localhost:5173');await p.locator('input[accept="image/*"]').setInputFiles('/tmp/field-atlas-ocr-input.png');
+await p.getByRole('button',{name:'Read printed text locally',exact:true}).click();
+await p.getByRole('heading',{name:'Review detected rows'}).waitFor({timeout:120000});
+assert.equal(await p.getByLabel('Easting / Latitude 1',{exact:true}).inputValue(),'341099');
+await p.getByRole('button',{name:'Continue to coordinate review'}).click();
+await p.getByRole('heading',{name:'Review your coordinates'}).waitFor();
+assert.equal(await p.getByRole('button',{name:'Create map →',exact:true}).isDisabled(),true);
+await p.getByLabel('I checked every coordinate against the photo.').check();
+await p.getByLabel('I confirm the selected zone, hemisphere and WGS84 datum.').check();
+assert.equal(await p.getByRole('button',{name:'Create map →',exact:true}).isEnabled(),true);
+assert.match(await p.getByLabel('Coordinates',{exact:true}).inputValue(),/341099/);assert.equal(await p.getByLabel('Zone',{exact:true}).inputValue(),'29');
+assert.equal(await p.getByRole('heading',{name:'Licence map',exact:true}).count(),0);await b.close();console.log('OCR smoke passed: typed screenshot extracted into mandatory review; no geometry created automatically.');

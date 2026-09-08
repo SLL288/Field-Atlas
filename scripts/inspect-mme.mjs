@@ -1,0 +1,11 @@
+import {chromium} from 'playwright';
+import fs from 'node:fs/promises';
+const browser=await chromium.launch({headless:true,channel:"chrome"});
+const page=await browser.newPage();
+const log=[];
+page.on('response',async r=>{if(r.url().includes('repo-prod')){const entry={url:r.url(),status:r.status()};log.push(entry);console.log(JSON.stringify(entry));}});
+await page.goto('https://portal.mme.gov.lr/map',{waitUntil:'networkidle',timeout:90000});
+await page.screenshot({path:'/tmp/mme-portal.png'});
+console.log((await page.locator('body').innerText()).slice(0,12000));
+await fs.writeFile('docs/mme-network.json',JSON.stringify(log,null,2));
+await browser.close();

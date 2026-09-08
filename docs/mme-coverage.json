@@ -1,0 +1,243 @@
+{
+  "tested_at": "2026-09-08T07:17:05.014Z",
+  "initial_count": 500,
+  "unique_count": 500,
+  "partitions": [
+    {
+      "type": "Appended Mineral Exploration License",
+      "count": 0
+    },
+    {
+      "type": "Broker License",
+      "count": 0
+    },
+    {
+      "type": "Category 1 Borehole Drilling Permit",
+      "count": 0
+    },
+    {
+      "type": "Category 2 Borehole Drilling Permit",
+      "count": 0
+    },
+    {
+      "type": "Class A Blasting License",
+      "count": 5
+    },
+    {
+      "type": "Class A Jewellery License",
+      "count": 0
+    },
+    {
+      "type": "Class A Jewelry License",
+      "count": 0
+    },
+    {
+      "type": "Class A Mining License",
+      "count": 7
+    },
+    {
+      "type": "Class A Mining License Diamond",
+      "count": 0
+    },
+    {
+      "type": "Class A Mining License Gold",
+      "count": 0
+    },
+    {
+      "type": "Class A Mining License Iron Ore",
+      "count": 1
+    },
+    {
+      "type": "Class B Blasting License",
+      "count": 8
+    },
+    {
+      "type": "Class B Jewelry License",
+      "count": 0
+    },
+    {
+      "type": "Class B Mining License (100 % Liberian-Owned)",
+      "count": 42
+    },
+    {
+      "type": "Class B Mining License (100% Liberian-Owned)",
+      "count": 57
+    },
+    {
+      "type": "Class B Mining License (Liberian & Foreign Owned)",
+      "count": 8
+    },
+    {
+      "type": "Class B Mining License (Liberian & Foreign-Owned)",
+      "count": 18
+    },
+    {
+      "type": "Class B Mining License (Liberian and Foreign-Owned)",
+      "count": 5
+    },
+    {
+      "type": "Class C Jewelry License",
+      "count": 0
+    },
+    {
+      "type": "Class C Mining License",
+      "count": 107
+    },
+    {
+      "type": "Class D Jewelry License",
+      "count": 0
+    },
+    {
+      "type": "Commercial Explosive License",
+      "count": 0
+    },
+    {
+      "type": "Corundum Dealership License",
+      "count": 0
+    },
+    {
+      "type": "DEALER LICENSE",
+      "count": 0
+    },
+    {
+      "type": "Dealer License",
+      "count": 0
+    },
+    {
+      "type": "Dealership License",
+      "count": 0
+    },
+    {
+      "type": "Development Exploration License",
+      "count": 5
+    },
+    {
+      "type": "Diamond Dealership License",
+      "count": 0
+    },
+    {
+      "type": "Exploration License-Gold",
+      "count": 9
+    },
+    {
+      "type": "Exploration License-Iron Ore",
+      "count": 2
+    },
+    {
+      "type": "Exploration License-Other Minerals",
+      "count": 45
+    },
+    {
+      "type": "Exploration-Gold",
+      "count": 71
+    },
+    {
+      "type": "Foreigner Civil Blasting Permit",
+      "count": 0
+    },
+    {
+      "type": "Gold Broker License",
+      "count": 0
+    },
+    {
+      "type": "Gold Dealership License",
+      "count": 0
+    },
+    {
+      "type": "Heavy_Mineral_Sands(Zircon) _(100% Liberian-Owned) _Class B Mining License",
+      "count": 0
+    },
+    {
+      "type": "Heavy_Mineral_Sands(Zircon)_(Liberian & Foreign_Owned) _Class B Mining License",
+      "count": 0
+    },
+    {
+      "type": "Liberian Civil Blasting Permit",
+      "count": 0
+    },
+    {
+      "type": "Liberian Consultancy Firm",
+      "count": 0
+    },
+    {
+      "type": "Mineral Development Agreement  (MDA)",
+      "count": 1
+    },
+    {
+      "type": "Mineral Exploration License",
+      "count": 23
+    },
+    {
+      "type": "Mining Cooperative Permit",
+      "count": 0
+    },
+    {
+      "type": "Ocean Sand Mining Permit",
+      "count": 0
+    },
+    {
+      "type": "Permit",
+      "count": 7
+    },
+    {
+      "type": "Prospecting License",
+      "count": 70
+    },
+    {
+      "type": "Quarry License",
+      "count": 0
+    },
+    {
+      "type": "Reconnaissance License",
+      "count": 0
+    },
+    {
+      "type": "River Sand Mining (100% Liberian Owned)",
+      "count": 1
+    },
+    {
+      "type": "River Sand Mining (100% Liberian-Owned)",
+      "count": 2
+    },
+    {
+      "type": "Rock Quarry (100% Liberian-Owned)",
+      "count": 0
+    },
+    {
+      "type": "Rock Quarry (Liberian & Foreign Owned)",
+      "count": 4
+    },
+    {
+      "type": "Sand Mining License",
+      "count": 0
+    },
+    {
+      "type": "Scrap Broker License",
+      "count": 0
+    },
+    {
+      "type": "Scrap Dealer License",
+      "count": 0
+    },
+    {
+      "type": "Scrap Dealers License",
+      "count": 0
+    },
+    {
+      "type": "Transferred Exploration License",
+      "count": 0
+    },
+    {
+      "type": "Transitional Exploration License",
+      "count": 3
+    },
+    {
+      "type": "Yellow Machine User Permit",
+      "count": 0
+    },
+    {
+      "type": "Zircon Dealership License",
+      "count": 0
+    }
+  ]
+}

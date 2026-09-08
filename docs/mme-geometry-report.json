@@ -1,0 +1,496 @@
+{
+  "valid": 402,
+  "excluded": [
+    {
+      "id": "101877",
+      "license_number": "CLA 2028/05",
+      "reason": "Invalid geometry."
+    },
+    {
+      "id": "559854",
+      "license_number": "AM1209121",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "721006",
+      "license_number": "AM1533426",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "721157",
+      "license_number": "AM1533226",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "721166",
+      "license_number": "AM1533326",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "721183",
+      "license_number": "AM1534826",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "721204",
+      "license_number": "AM1534726",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "725942",
+      "license_number": "AM1540726",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "1338827",
+      "license_number": "AM1535726",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "1349825",
+      "license_number": "AM1533826",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "1349866",
+      "license_number": "AM1533926",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "1349882",
+      "license_number": "AM1534126",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "1349906",
+      "license_number": "AM1534226",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "1349979",
+      "license_number": "AM1556125",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2577612",
+      "license_number": "AM1528426",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2577620",
+      "license_number": "AM1528526",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2585168",
+      "license_number": "AM1537126",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2587779",
+      "license_number": "AM1530326",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2587787",
+      "license_number": "AM1531026",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2587793",
+      "license_number": "AM1534626",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2587799",
+      "license_number": "AM1535025",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2590895",
+      "license_number": "AM1575625",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2595437",
+      "license_number": "AM1540326",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2595445",
+      "license_number": "AM1540126",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2596967",
+      "license_number": "AM1525125",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2606771",
+      "license_number": "AM1541726",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2606780",
+      "license_number": "AM1541626",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2611528",
+      "license_number": "AM1536126",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2611549",
+      "license_number": "AM1536226",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2616920",
+      "license_number": "AM1541326",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2616987",
+      "license_number": "AM1541526",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2668365",
+      "license_number": "AM1552325",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2668742",
+      "license_number": "AM1536726",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2681074",
+      "license_number": "AM1537326",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2681088",
+      "license_number": "AM1537226",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2681099",
+      "license_number": "AM1537026",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2681111",
+      "license_number": "AM1536926",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2690991",
+      "license_number": "AM1529925",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2691068",
+      "license_number": "AM1530525",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2691124",
+      "license_number": "AM1533625",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2691188",
+      "license_number": "AM1532825",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2690974",
+      "license_number": "AM1529825",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2690961",
+      "license_number": "AM1529725",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2691042",
+      "license_number": "AM1530225",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2691081",
+      "license_number": "AM1530625",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2691147",
+      "license_number": "AM1530725",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2691106",
+      "license_number": "AM1529425",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2691115",
+      "license_number": "AM1529525",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2691096",
+      "license_number": "AM1529325",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2691179",
+      "license_number": "AM1530925",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2691167",
+      "license_number": "AM1530825",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2691532",
+      "license_number": "AM1545426",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2691543",
+      "license_number": "AM1545526",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2691567",
+      "license_number": "AM1545226",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2691556",
+      "license_number": "AM1545326",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2693604",
+      "license_number": "AM1536026",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2693614",
+      "license_number": "AM1535926",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2695080",
+      "license_number": "AM1535826",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2695691",
+      "license_number": "AM1543726",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2695899",
+      "license_number": "AM1535526",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2695910",
+      "license_number": "AM1532926",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2695944",
+      "license_number": "AM1535426",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2695984",
+      "license_number": "AM1535226",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2695993",
+      "license_number": "AM1535326",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2697338",
+      "license_number": "AM1536826",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2697583",
+      "license_number": "AM1541826",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2697596",
+      "license_number": "AM1541926",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2697704",
+      "license_number": "AM1537426",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2697718",
+      "license_number": "AM1537626",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2697730",
+      "license_number": "AM1537726",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2697744",
+      "license_number": "AM1537526",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2697777",
+      "license_number": "AM1545626",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2697792",
+      "license_number": "AM1545726",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2702297",
+      "license_number": "AM1538126",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2702304",
+      "license_number": "AM1538426",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2702318",
+      "license_number": "AM1538326",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2702331",
+      "license_number": "AM1538226",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2703118",
+      "license_number": "AM1540426",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2710310",
+      "license_number": "AM1539426",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2715946",
+      "license_number": "AM1643826",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2715955",
+      "license_number": "AM1644726",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2715997",
+      "license_number": "AM1644126",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2716037",
+      "license_number": "AM1644626",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2716050",
+      "license_number": "AM1647326",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2716059",
+      "license_number": "AM1647226",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2716112",
+      "license_number": "AM1653926",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2716124",
+      "license_number": "AM1647126",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2716141",
+      "license_number": "AM1644526",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2720096",
+      "license_number": "AM1549726",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2720116",
+      "license_number": "AM1549826",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2720127",
+      "license_number": "AM1549926",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2720147",
+      "license_number": "AM1550026",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "639954",
+      "license_number": "MEL9003722",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2763866",
+      "license_number": "MEL9001226",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2558684",
+      "license_number": "PL10045125",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2666620",
+      "license_number": "PL10060626",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2731506",
+      "license_number": "PL10057626",
+      "reason": "invalid polygon, fewer than 4 points"
+    },
+    {
+      "id": "2731520",
+      "license_number": "PL10057526",
+      "reason": "invalid polygon, fewer than 4 points"
+    }
+  ],
+  "cleaned": 48
+}

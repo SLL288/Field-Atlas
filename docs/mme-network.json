@@ -1,0 +1,214 @@
+[
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/appstore.config/en",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/home.privacy/null",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/appstore.config/null",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/home.top.backgroundcolor/null",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/home.top.subheader.text/null",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/home.top.header.text/null",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/payments.on/null",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/online.submission.on/null",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/v1/tender/LR/?status=PUBLISHED&from=0&size=1",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/block/LR/?q=&name=&status=AVAILABLE&from=0&size=1",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/languages/active",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/blocks.layer.on/null",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/library.on/null",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/online.submission.on/en",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/tenders/null",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/home.top.header.text/en",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/home.top.subheader.text/en",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/home.top.backgroundcolor/en",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/library.on/en",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/blocks.layer.on/en",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/ws/LR/active/null",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/tenders/en",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/ws/LR/active/en",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/payments.on/en",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/home.privacy/en",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/home.privacy/null",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/home.top.header.text/en",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/image/LR",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/gis.config/en",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/dictionary/LR/statusGroups",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/dictionary/LR/types?onlyName=false",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/licenses/LR/ws/-1?comments_enabled=true&apponly=true&from=0&size=1",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/countries/LR",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/dictionary/LR/owner?reduced=false",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/dictionary/LR/assets?onlyName=false",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/licenses/LR/ws/-1?need_actions=true&apponly=false&byemail=true&from=0&size=1",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/licenses/LR/ws/-1?need_actions=true&apponly=true&byemail=true&from=0&size=1",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/dictionary/LR/types?onlyName=false",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/blocks.layer.on/en",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/countries/LR",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/dictionary/LR/assets?onlyName=false",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/settingsp/LR/gis.format/en",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/kml/LR/list?active=true",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/dictionary/LR/owner?reduced=false",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/map/geojson/LR/ws/-1?status=Active%20Licenses&type=&owner.id=&minerals.id=",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/countries/LR",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/dictionary/LR/owner?reduced=false",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/countries/LR",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/countries/LR",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/dictionary/LR/owner?reduced=false",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/mapcatalogue/LR/geojson/",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/stratigraphy/LR/geojson/",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/map/geojson/LR/ws/-1?active=true&entity=application",
+    "status": 200
+  }
+]

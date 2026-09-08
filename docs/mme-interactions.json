@@ -1,0 +1,18 @@
+[
+  {
+    "url": "https://repo-prod.revenuedev.org/api/map/geojson/LR/ws/-1?status=Active%20Licenses&type=&owner.id=&minerals.id=",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/map/geojson/LR/ws/-1?active=true&entity=application",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/map/geojson/LR/ws/-1?status=Active%20Licenses&type=Class%20C%20Mining%20License&owner.id=&minerals.id=",
+    "status": 200
+  },
+  {
+    "url": "https://repo-prod.revenuedev.org/api/map/geojson/LR/ws/-1?active=true&entity=application",
+    "status": 200
+  }
+]
