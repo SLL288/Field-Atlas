@@ -9,3 +9,6 @@ drafts/
 !.env.example
 .DS_Store
 *.log
+
+.wrangler/
+.dev.vars*

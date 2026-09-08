@@ -112,3 +112,7 @@ The location button explains blocked permissions, insecure origins, missing supp
 Deploy the Node backend and built frontend together behind HTTPS with persistent `DATA_DIR` storage. Uploading source to GitHub does not deploy a website; GitHub Pages alone cannot run this Express backend, archive files or schedule MME refreshes.
 
 Run `node scripts/location-smoke.mjs` with the dev server running to verify browser location behavior using simulated coordinates.
+
+## Deploy the complete app on Cloudflare
+
+The repository now includes a Cloudflare backend and a Pages API bridge. Follow [Cloudflare setup](docs/CLOUDFLARE.md) to create the private R2 bucket, deploy the Worker and connect the Pages `BACKEND` service binding. This enables MME caching/scheduled refresh, persistent plot/export archives and optional server handwriting without an always-on computer. Existing Node/Docker deployment still works.

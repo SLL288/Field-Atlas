@@ -46,3 +46,9 @@ Not exercised: hosted persistent-volume backups, multi-process writers, browser-
 Location unit tests cover insecure contexts, unsupported browsers, permission denial without repeated prompts, provider fallback, final timeout and invalid coordinates. The Chrome location smoke uses simulated coordinates to verify localhost plotting, coordinate order, archived accuracy and Chinese permission guidance. Physical device location availability remains unverified.
 
 Current-location verification passed: all 20 automated tests, production build and `scripts/location-smoke.mjs`. Browser location was simulated; this does not establish the physical device’s permission/provider state.
+
+## Cloudflare backend adaptation
+
+Includes a Pages service-binding bridge, private backend Worker, R2 files/cache, SQLite Durable Object archive index and serialized writes, and six-hour Cron/alarm refresh. Existing Node OCR shares the same recognition core. Cloud tests use mocked upstream HTTP; live Ministry access from Cloudflare and account deployment remain unverified until the operator signs in and provisions bindings.
+
+Passed: 22 automated tests, frontend production/PWA build, Cloudflare TypeScript check, Worker dry-run bundle, Pages Functions bundle, and local Cloudflare runtime smoke including last-good cache retention after upstream HTTP 403. Dependency audit reports zero known vulnerabilities.

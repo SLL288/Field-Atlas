@@ -4,3 +4,9 @@ data
 .git
 .env
 drafts
+
+.env.*
+.dev.vars*
+**/.dev.vars*
+.wrangler
+**/.wrangler

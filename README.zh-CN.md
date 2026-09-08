@@ -82,3 +82,21 @@ npm run activity:logs -- --id EVENT_UUID
 本机 `http://localhost` 或 `http://127.0.0.1` 可请求定位。手机访问电脑的 `http://192.168.x.x:5173` 需要改为 HTTPS；手机上的 localhost 指手机本身。请允许浏览器的网站定位权限，并在系统设置中为浏览器开启定位服务。高精度定位失败时应用会重试普通定位，并显示具体错误原因。电脑定位精度取决于设备和网络，不能保证 GPS 精度。
 
 GitHub 上传仅保存源代码，不会自动上线网站。请将 Node 后端与前端一起部署到支持 HTTPS 和持久化数据目录的服务器；GitHub Pages 无法单独运行此后端。
+
+## Cloudflare 完整部署
+
+已添加 Worker 后端与 Pages API 转发。先启用 R2 和适合坐标计算的 Workers 付费计划，再在项目目录执行：
+
+```sh
+git pull --ff-only
+npm ci
+npx wrangler login
+npm run cf:bucket
+npm run cf:deploy
+```
+
+在现有 Pages 项目 → Settings → Bindings 中添加 Service binding：变量名 `BACKEND`，服务 `field-atlas-backend`，保存后重新部署 Pages。现有构建命令仍为 `npm run build`，输出目录 `dist`。
+
+打开 `/api/health` 应返回 JSON。首次打开 `/api/mme` 会启动采集，请稍等几分钟；之后每六小时检查更新。R2 的 `activity/events/` 保存每次操作的文件，`activity/logs/日期/` 保存操作记录。无需电脑持续开机。
+
+Cloudflare 尚未在本机登录，因此代码提交不代表已完成云端部署。详细步骤、管理员密钥和故障排查见 [Cloudflare 部署说明](docs/CLOUDFLARE.md)。
