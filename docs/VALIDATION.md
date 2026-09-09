@@ -80,3 +80,7 @@ The remaining 91 collapsed polygon records convert to 2 reference points and 89 
 ## Current-position archive coverage — 2026-09-09
 
 Replaced the map-only continuous GeolocateControl with a single-position button using the existing Home locate/plot/archive flow. Added a visible server-save disclosure to the map footer. Production build and location browser smoke passed: both buttons create one GPS archive event with exact coordinates/accuracy; Chinese permission-denial guidance still works. No historical map-control positions are backfilled.
+
+## Distance measurement — 2026-09-09
+
+Added a click/tap distance sketch with geodesic segment totals, metric formatting, undo/clear and finish-to-archive. Licence selection is suppressed while drawing, and finalized lines are saved through the existing durable outbox. Passed 27 unit/integration tests, production build and browser measurement smoke (clicks, undo, no accidental licence selection, saved line/distance, clear, Chinese and mobile layout). Measurements exclude elevation and routing.
