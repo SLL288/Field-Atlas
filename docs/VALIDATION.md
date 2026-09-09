@@ -76,3 +76,7 @@ Reprocessing the locally cached 499-source-record snapshot produced 408 usable f
 ## Reference points and lines — 2026-09-09
 
 The remaining 91 collapsed polygon records convert to 2 reference points and 89 two-coordinate reference lines. All 499 records in the cached snapshot are renderable, with zero full exclusions; area coverage remains incomplete. Added tests for distinct-coordinate conversion, original-geometry retention and exclusion from intersection/area results. Passed 26 tests, frontend build, Cloudflare check/bundle/runtime smoke. Browser regression uses `/tmp/atlas-reference-fixture.json` generated with `prepareGeometry` from the local cached data.
+
+## Current-position archive coverage — 2026-09-09
+
+Replaced the map-only continuous GeolocateControl with a single-position button using the existing Home locate/plot/archive flow. Added a visible server-save disclosure to the map footer. Production build and location browser smoke passed: both buttons create one GPS archive event with exact coordinates/accuracy; Chinese permission-denial guidance still works. No historical map-control positions are backfilled.

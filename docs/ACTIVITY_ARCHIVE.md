@@ -50,3 +50,7 @@ Before plotting or downloading, the browser persists the event in IndexedDB. It 
 The server validates geometry, limits events to 20 MB and 100,000 coordinate positions, and rate-limits ingestion. Invalid/permanently rejected events stay visible in the pending queue. Files are committed together by an atomic directory rename; a retry repairs a failed daily-log update without duplicating the event.
 
 Use persistent storage, keep this directory outside `public`/`dist`, and back it up. No automatic retention/deletion policy is enabled. This filesystem writer is intended for one backend process; multi-replica deployment requires shared transactional storage/coordination. Server records are an operator archive, not a synchronized editable user project library. Both language versions disclose server archiving in the interface.
+
+## Cloud-hosted archives and GPS
+
+For the deployed Cloudflare app, use R2 → field-atlas-files → activity/logs/DATE and activity/events/EVENT_ID. See [Cloudflare viewing instructions](CLOUDFLARE.md#view-visitor-coordinates-and-requested-current-positions). The local CLI reads only the local Node archive. Both current-location buttons now archive a single returned position; no background tracking is enabled. Failed requests and historical uses of the older map-only locator have no saved coordinates.

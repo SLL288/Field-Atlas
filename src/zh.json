@@ -252,5 +252,6 @@
   "Recovered known polygon areas only. Degenerate source parts cannot define an area; boundary coverage remains incomplete.": "仅恢复已知多边形区域。退化的源数据部分无法确定面积，边界覆盖仍不完整。",
   "Overlapping valid polygon components were normalized without inferring missing boundary vertices.": "已对相互重叠的有效多边形部分进行规范化，未推测或补造缺失的边界点。",
   "Reference location only. The source does not provide a polygon area; this point or line is excluded from licence overlap checks.": "仅供位置参考。源数据未提供多边形面积，此点或线不参与矿权重叠检查。",
-  "● Reference points / lines": "● 参考点 / 线"
+  "● Reference points / lines": "● 参考点 / 线",
+  "Using current location plots and saves the returned coordinates to the server.": "使用当前位置会绘制定位结果，并将返回的坐标保存到服务器。"
 }

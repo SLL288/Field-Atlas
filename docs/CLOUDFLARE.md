@@ -102,3 +102,18 @@ npx wrangler pages functions build --outdir /tmp/field-atlas-pages-functions
 The cloud smoke uses Cloudflare's local runtime, emulated R2/SQLite storage, and mocked MME upstream responses. It exercises concurrent idempotency, export formats, protected reads and scheduled collection. It does not use your Cloudflare account or publish anything.
 
 References: [Pages service bindings](https://developers.cloudflare.com/pages/functions/bindings/), [Cron Triggers](https://developers.cloudflare.com/workers/configuration/cron-triggers/), [Durable Object alarms](https://developers.cloudflare.com/durable-objects/api/alarms/).
+
+## View visitor coordinates and requested current positions
+
+In your Cloudflare dashboard, open R2 Object Storage → field-atlas-files → Objects. Enable “View prefixes as directories” if needed.
+
+1. Open `activity/logs/YYYY-MM-DD/` (UTC date). Select an event JSON and download it to view the action summary, source, timestamps and anonymous client/session IDs.
+2. Copy its `event_id` or follow its `folder` value to `activity/events/<event_id>/`.
+3. Download `geometry.geojson` for the coordinates, `plot.kml` to view a plot in a GIS viewer, or `export.*` for the file offered to the visitor.
+4. `metadata.json` contains provenance, available input text/CRS, timestamps and artifact hashes.
+
+For a requested device location, `metadata.json` / the daily summary has `context.source: "gps"`. In `geometry.geojson`, the point's coordinates are `[longitude, latitude]`, with `accuracy_m` and `position_timestamp` in its properties. These are the browser's reported coordinates, not verified physical identity or survey-grade measurements.
+
+Both Home's location action and the map's location button now use the same single-position plotting/archive flow, with visible disclosure. No continuous tracking is enabled. Failed/denied/timed-out location requests have no coordinates to archive. The older map-only tracking control did not create archive events; its historical positions cannot be recovered. Offline actions appear in R2 only after upload succeeds. Anonymous browser IDs are not people’s names and can change when browser data is cleared.
+
+Cloudflare dashboard access uses your Cloudflare login. ADMIN_TOKEN is needed only for the application's protected archive API, not for browsing your own R2 bucket. Keep public bucket access disabled; visitor coordinate files are private operator data.

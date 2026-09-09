@@ -7,7 +7,7 @@ import * as turf from '@turf/turf';
 import type {Feature,FeatureCollection} from 'geojson';
 import type {Language} from './i18n';
 import {empty} from '../shared/geo';
-export default function MapView({language,official,user,overlap,selected,onSelect,visible}:{language:Language;official:FeatureCollection;user:FeatureCollection;overlap:FeatureCollection;selected:Feature|null;onSelect:(f:Feature)=>void;visible:Record<string,boolean>}){
+export default function MapView({language,official,user,overlap,selected,onSelect,onLocate,visible}:{language:Language;official:FeatureCollection;user:FeatureCollection;overlap:FeatureCollection;selected:Feature|null;onSelect:(f:Feature)=>void;onLocate:()=>Promise<void>;visible:Record<string,boolean>}){
  const [basemap,basemapSet]=useState<'street'|'satellite'>(()=>{try{return localStorage.getItem('field-atlas-basemap')==='satellite'?'satellite':'street';}catch{return 'street';}});
  const baseRef=useRef(basemap);baseRef.current=basemap;
  const [imageryError,imageryErrorSet]=useState(false);
@@ -24,7 +24,7 @@ export default function MapView({language,official,user,overlap,selected,onSelec
   m.setPaintProperty('official-line','line-width',satellite?2:1.3);
  }
  const div=useRef<HTMLDivElement>(null),map=useRef<maplibregl.Map|null>(null);
- const latest=useRef({language,official,user,overlap,visible,onSelect});latest.current={language,official,user,overlap,visible,onSelect};
+ const latest=useRef({language,official,user,overlap,visible,onSelect,onLocate});latest.current={language,official,user,overlap,visible,onSelect,onLocate};
  function update(){
   const m=map.current;if(!m?.getLayer('overlap-fill'))return;
   for(const name of ['official','user','overlap'] as const)(m.getSource(name) as maplibregl.GeoJSONSource)?.setData(latest.current[name]);
@@ -35,7 +35,10 @@ export default function MapView({language,official,user,overlap,selected,onSelec
  }
  useEffect(()=>{
   const m=new maplibregl.Map({container:div.current!,locale:language==='zh'?{'GeolocateControl.FindMyLocation':'定位当前位置','GeolocateControl.LocationNotAvailable':'无法获取位置','NavigationControl.ResetBearing':'拖动旋转地图，点击恢复朝北','NavigationControl.ZoomIn':'放大','NavigationControl.ZoomOut':'缩小','AttributionControl.ToggleAttribution':'显示或隐藏地图来源'}:undefined,center:[-9.5,6.5],zoom:6.5,style:{version:8,sources:{osm:{type:'raster',tiles:['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],tileSize:256,attribution:'© OpenStreetMap contributors'}},layers:[{id:'base',type:'raster',source:'osm'}]}});map.current=m;
-  m.addControl(new maplibregl.NavigationControl(),'top-right');m.addControl(new maplibregl.GeolocateControl({positionOptions:{enableHighAccuracy:true},trackUserLocation:true}),'top-right');
+  m.addControl(new maplibregl.NavigationControl(),'top-right');const locationGroup=document.createElement('div');locationGroup.className='maplibregl-ctrl maplibregl-ctrl-group';
+  const locationButton=document.createElement('button');locationButton.type='button';locationButton.className='maplibregl-ctrl-geolocate';locationButton.title=language==='zh'?'定位并保存当前位置':'Plot and save current location';locationButton.setAttribute('aria-label',locationButton.title);locationButton.innerHTML='<span class="maplibregl-ctrl-icon" aria-hidden="true"></span>';
+  locationButton.onclick=()=>{locationButton.disabled=true;void latest.current.onLocate().finally(()=>{locationButton.disabled=false;});};locationGroup.append(locationButton);
+  m.addControl({onAdd:()=>locationGroup,onRemove:()=>locationGroup.remove()},'top-right');
   m.on('error',event=>{if('sourceId' in event&&event.sourceId==='satellite')imageryErrorSet(true);});
   m.on('style.load',()=>{
    for(const name of ['official','user','overlap'] as const)m.addSource(name,{type:'geojson',data:latest.current[name]});
