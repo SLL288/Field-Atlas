@@ -100,3 +100,7 @@ npm run cf:deploy
 打开 `/api/health` 应返回 JSON。首次打开 `/api/mme` 会启动采集，请稍等几分钟；之后每六小时检查更新。R2 的 `activity/events/` 保存每次操作的文件，`activity/logs/日期/` 保存操作记录。无需电脑持续开机。
 
 请使用 Node.js 22 或更新版本。此 Mac 可先执行 `export PATH="/opt/homebrew/opt/node@22/bin:$PATH"`。Free 计划仍有用量限制，R2 超过免费额度会收费。代码提交不代表已完成云端部署。详细步骤、管理员密钥和故障排查见 [Cloudflare 部署说明](docs/CLOUDFLARE.md)。
+
+## 卫星影像底图
+
+在地图左上角的「底图」选择「街道地图」或「卫星影像」。选择会在当前浏览器保存，切换时保留视角与矿权边界。卫星影像来自 Esri World Imagery，保留来源署名；影像日期与精度因地区而异，并非实时影像。需要联网，不提供影像离线下载，不写入 R2，也无需在后端配置影像 API key。

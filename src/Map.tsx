@@ -1,4 +1,4 @@
-import {useEffect,useRef} from 'react';
+import {useEffect,useRef,useState} from 'react';
 import * as maplibregl from 'maplibre-gl';
 import mapWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 // Bundle the worker and its imports; Pages must serve JavaScript, not its HTML fallback.
@@ -8,6 +8,21 @@ import type {Feature,FeatureCollection} from 'geojson';
 import type {Language} from './i18n';
 import {empty} from '../shared/geo';
 export default function MapView({language,official,user,overlap,selected,onSelect,visible}:{language:Language;official:FeatureCollection;user:FeatureCollection;overlap:FeatureCollection;selected:Feature|null;onSelect:(f:Feature)=>void;visible:Record<string,boolean>}){
+ const [basemap,basemapSet]=useState<'street'|'satellite'>(()=>{try{return localStorage.getItem('field-atlas-basemap')==='satellite'?'satellite':'street';}catch{return 'street';}});
+ const baseRef=useRef(basemap);baseRef.current=basemap;
+ const [imageryError,imageryErrorSet]=useState(false);
+ function updateBasemap(){
+  const m=map.current;if(!m?.getLayer('official-fill'))return;
+  const satellite=baseRef.current==='satellite';
+  if(satellite&&!m.getSource('satellite')){
+   m.addSource('satellite',{type:'raster',tiles:['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],tileSize:256,maxzoom:19,attribution:'Imagery © <a href="https://www.arcgis.com/home/item.html?id=10df2279f9684e4a9f6a7f08febac2a9" target="_blank" rel="noopener noreferrer">Esri</a>, Vantor, Earthstar Geographics, and the GIS User Community'});
+   m.addLayer({id:'satellite-base',type:'raster',source:'satellite'},'official-fill');
+  }
+  m.setLayoutProperty('base','visibility',satellite?'none':'visible');
+  if(m.getLayer('satellite-base'))m.setLayoutProperty('satellite-base','visibility',satellite?'visible':'none');
+  m.setPaintProperty('official-line','line-color',satellite?'#ffd166':'#95661b');
+  m.setPaintProperty('official-line','line-width',satellite?2:1.3);
+ }
  const div=useRef<HTMLDivElement>(null),map=useRef<maplibregl.Map|null>(null);
  const latest=useRef({language,official,user,overlap,visible,onSelect});latest.current={language,official,user,overlap,visible,onSelect};
  function update(){
@@ -21,6 +36,7 @@ export default function MapView({language,official,user,overlap,selected,onSelec
  useEffect(()=>{
   const m=new maplibregl.Map({container:div.current!,locale:language==='zh'?{'GeolocateControl.FindMyLocation':'定位当前位置','GeolocateControl.LocationNotAvailable':'无法获取位置','NavigationControl.ResetBearing':'拖动旋转地图，点击恢复朝北','NavigationControl.ZoomIn':'放大','NavigationControl.ZoomOut':'缩小','AttributionControl.ToggleAttribution':'显示或隐藏地图来源'}:undefined,center:[-9.5,6.5],zoom:6.5,style:{version:8,sources:{osm:{type:'raster',tiles:['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],tileSize:256,attribution:'© OpenStreetMap contributors'}},layers:[{id:'base',type:'raster',source:'osm'}]}});map.current=m;
   m.addControl(new maplibregl.NavigationControl(),'top-right');m.addControl(new maplibregl.GeolocateControl({positionOptions:{enableHighAccuracy:true},trackUserLocation:true}),'top-right');
+  m.on('error',event=>{if('sourceId' in event&&event.sourceId==='satellite')imageryErrorSet(true);});
   m.on('style.load',()=>{
    for(const name of ['official','user','overlap'] as const)m.addSource(name,{type:'geojson',data:latest.current[name]});
    m.addLayer({id:'official-fill',type:'fill',source:'official',paint:{'fill-color':'#b7842c','fill-opacity':0.28}});
@@ -32,13 +48,14 @@ export default function MapView({language,official,user,overlap,selected,onSelec
    m.addLayer({id:'overlap-fill',type:'fill',source:'overlap',paint:{'fill-color':'#e34736','fill-opacity':0.65}});
    const select=(e:maplibregl.MapLayerMouseEvent)=>{const f=e.features?.[0];if(f){const p=f.properties;const real=latest.current.official.features.find(x=>String(x.properties?.id)===String(p.id));if(real)latest.current.onSelect(real);}};
    m.on('click','official-fill',select);m.on('click','official-point',select);m.on('click','official-line',select);
-   update();
+   update();updateBasemap();
    if(latest.current.user.features.length)m.fitBounds(turf.bbox(latest.current.user) as [number,number,number,number],{padding:70,maxZoom:16});
   });
   return ()=>{m.remove();map.current=null;};
  },[language]);
+ useEffect(()=>{imageryErrorSet(false);try{localStorage.setItem('field-atlas-basemap',basemap);}catch{}updateBasemap();},[basemap]);
  useEffect(update,[official,user,overlap,visible]);
  useEffect(()=>{if(user.features.length)map.current?.fitBounds(turf.bbox(user) as [number,number,number,number],{padding:70,maxZoom:16});},[user]);
  useEffect(()=>{if(selected)map.current?.fitBounds(turf.bbox(selected) as [number,number,number,number],{padding:80,maxZoom:14});},[selected]);
- return <div ref={div} className="map-canvas" aria-label={language==='zh'?'利比里亚矿权交互地图':'Interactive Liberia licence map'}/>;
+ return <><div ref={div} className="map-canvas" aria-label={language==='zh'?'利比里亚矿权交互地图': 'Interactive Liberia licence map'}/><label className="basemap-switch">{language==='zh'?'底图':'Basemap'}<select aria-label={language==='zh'?'底图':'Basemap'} value={basemap} onChange={e=>basemapSet(e.target.value as 'street'|'satellite')}><option value="street">{language==='zh'?'街道地图':'Street map'}</option><option value="satellite">{language==='zh'?'卫星影像':'Satellite'}</option></select></label>{basemap==='satellite'&&<div className="imagery-note" role="status">{imageryError?(language==='zh'?'卫星影像暂时无法加载，请检查网络或切换到街道地图。':'Satellite imagery could not load. Check your connection or switch to Street map.'):(language==='zh'?'影像日期与精度因地区而异，非实时影像。需要联网。':'Imagery dates and detail vary; not live imagery. Internet required.')}</div>}</>;
 }

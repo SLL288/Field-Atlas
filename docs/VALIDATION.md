@@ -62,3 +62,9 @@ Removed the paid CPU override; deployment uses the platform's Free-plan defaults
 Live API returned 401 usable features, but MapLibre 6's default worker URL `/assets/maplibre-gl-worker.mjs` returned Pages HTML. The source workers stayed pending and no polygons rendered. Earlier canvas-only smoke checks did not catch this; the earlier full map smoke failure was an early symptom, not merely a stale development server.
 
 Explicitly importing the worker with Vite `?worker&url` now bundles its dependencies, emits a hashed JavaScript asset, and includes it in the PWA precache. `npm run build` and `scripts/map-render-smoke.mjs` pass. The new regression check verifies a JavaScript worker response and actual rendered official-fill features both online and after offline reload.
+
+## Satellite basemap — 2026-09-09
+
+Added Street map / Satellite selector with browser persistence, bilingual labels, imagery attribution, and brighter licence outlines. Raster layers switch below vector overlays without recreating the map. Satellite tiles load only when selected and are not added to the service-worker offline cache.
+
+Passed production build and `scripts/satellite-smoke.mjs`: actual Esri tile response, rendered licence polygons, unchanged center/zoom, persistence after reload, Chinese selector and mobile width. `scripts/map-render-smoke.mjs` also passed online/offline polygon rendering. Safari location-provider behavior was not changed or verified on the user's device.

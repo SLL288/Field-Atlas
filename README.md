@@ -116,3 +116,7 @@ Run `node scripts/location-smoke.mjs` with the dev server running to verify brow
 ## Deploy the complete app on Cloudflare
 
 The repository now includes a Cloudflare backend and a Pages API bridge. Follow [Cloudflare setup](docs/CLOUDFLARE.md) to create the private R2 bucket, deploy the Worker and connect the Pages `BACKEND` service binding. This enables MME caching/scheduled refresh, persistent plot/export archives and optional server handwriting without an always-on computer. Existing Node/Docker deployment still works.
+
+## Satellite basemap
+
+On the Map, use the **Basemap** selector to switch between Street map and Satellite. The choice persists on this browser; switching preserves the viewport and geometry overlays. Satellite mode uses the public Esri World Imagery raster service, with provider attribution and brighter licence outlines. Image dates/resolution vary; it is not live imagery. Tiles are fetched directly from the provider only when selected, without a backend API key or R2 writes. No satellite tile downloading or service-worker offline cache is implemented. Esri service availability and [provider terms](https://www.arcgis.com/home/item.html?id=10df2279f9684e4a9f6a7f08febac2a9) apply.
