@@ -1,5 +1,5 @@
 import {useEffect,useRef} from 'react';
-import maplibregl from 'maplibre-gl';
+import * as maplibregl from 'maplibre-gl';
 import * as turf from '@turf/turf';
 import type {Feature,FeatureCollection} from 'geojson';
 import type {Language} from './i18n';

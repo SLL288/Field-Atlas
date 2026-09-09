@@ -85,7 +85,7 @@ GitHub 上传仅保存源代码，不会自动上线网站。请将 Node 后端�
 
 ## Cloudflare 完整部署
 
-已添加 Worker 后端与 Pages API 转发。先启用 R2 和适合坐标计算的 Workers 付费计划，再在项目目录执行：
+已添加 Worker 后端与 Pages API 转发。先启用 R2，Workers 保持 Free 计划，再在项目目录执行：
 
 ```sh
 git pull --ff-only
@@ -99,4 +99,4 @@ npm run cf:deploy
 
 打开 `/api/health` 应返回 JSON。首次打开 `/api/mme` 会启动采集，请稍等几分钟；之后每六小时检查更新。R2 的 `activity/events/` 保存每次操作的文件，`activity/logs/日期/` 保存操作记录。无需电脑持续开机。
 
-Cloudflare 尚未在本机登录，因此代码提交不代表已完成云端部署。详细步骤、管理员密钥和故障排查见 [Cloudflare 部署说明](docs/CLOUDFLARE.md)。
+请使用 Node.js 22 或更新版本。此 Mac 可先执行 `export PATH="/opt/homebrew/opt/node@22/bin:$PATH"`。Free 计划仍有用量限制，R2 超过免费额度会收费。代码提交不代表已完成云端部署。详细步骤、管理员密钥和故障排查见 [Cloudflare 部署说明](docs/CLOUDFLARE.md)。

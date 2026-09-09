@@ -2,9 +2,20 @@
 
 The Pages site stays at `https://field-atlas.pages.dev`. `functions/api/[[path]].ts` forwards `/api/*` to a private backend service binding. The Worker runs API requests and scheduled refreshes; a SQLite Durable Object coordinates writes and indexes activity, and a private R2 bucket holds cache and generated files. No computer needs to remain on.
 
+## Node version troubleshooting on this Mac
+
+Wrangler cannot run under Node 20. This machine already has Homebrew Node 22 installed. Select it in the terminal before running npm/Wrangler commands:
+
+```sh
+export PATH="/opt/homebrew/opt/node@22/bin:$PATH"
+node --version
+```
+
+This affects the current terminal only. Other machines can install/select Node 22 using their version manager. If deployment never ran, Pages will show the missing BACKEND error until the Worker is deployed, the service binding is added, and Pages is redeployed.
+
 ## One-time setup
 
-Use Node.js 22 or newer and run these commands from this repository on your computer. Select the same Cloudflare account that owns the Pages project. Enable R2 and use a Workers Paid plan for the configured CPU budget and geometry processing. Cloudflare usage is billed by your account; no resources have been created by committing these files.
+Use Node.js 22 or newer (`node --version` must show v22 or later) and run these commands from this repository on your computer. Select the same Cloudflare account that owns the Pages project. Enable R2 and keep Workers on the Free plan. The configuration uses the platform defaults and does not request a paid CPU budget. SQLite Durable Objects support Workers Free; large geometry workloads and high traffic remain subject to its limits. R2 has a free allowance with billable overages, so this is not a guaranteed zero-charge service. No resources are created by committing these files.
 
 ```sh
 git pull --ff-only

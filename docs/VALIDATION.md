@@ -52,3 +52,7 @@ Current-location verification passed: all 20 automated tests, production build a
 Includes a Pages service-binding bridge, private backend Worker, R2 files/cache, SQLite Durable Object archive index and serialized writes, and six-hour Cron/alarm refresh. Existing Node OCR shares the same recognition core. Cloud tests use mocked upstream HTTP; live Ministry access from Cloudflare and account deployment remain unverified until the operator signs in and provisions bindings.
 
 Passed: 22 automated tests, frontend production/PWA build, Cloudflare TypeScript check, Worker dry-run bundle, Pages Functions bundle, and local Cloudflare runtime smoke including last-good cache retention after upstream HTTP 403. Dependency audit reports zero known vulnerabilities.
+
+## Workers Free and Node 22 deployment fix — 2026-09-09
+
+Removed the paid CPU override; deployment uses the platform's Free-plan defaults. Node 22 is installed on this Mac but must be selected in the shell. Updated MapLibre to 6.8.0 and its namespace import, and pinned a patched sharp dependency for deployment tooling. Audit: zero known vulnerabilities. Passed all 22 tests, production build, Cloudflare type-check/bundle/runtime smoke, and a production Chrome map/location/KML export check. The older full development smoke timed out waiting for its map canvas against the long-running dev server; restart development after dependency changes. Actual Cloudflare Free CPU/quota enforcement is not simulated locally and remains to be verified after deployment.
