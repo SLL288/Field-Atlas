@@ -56,3 +56,9 @@ Passed: 22 automated tests, frontend production/PWA build, Cloudflare TypeScript
 ## Workers Free and Node 22 deployment fix — 2026-09-09
 
 Removed the paid CPU override; deployment uses the platform's Free-plan defaults. Node 22 is installed on this Mac but must be selected in the shell. Updated MapLibre to 6.8.0 and its namespace import, and pinned a patched sharp dependency for deployment tooling. Audit: zero known vulnerabilities. Passed all 22 tests, production build, Cloudflare type-check/bundle/runtime smoke, and a production Chrome map/location/KML export check. The older full development smoke timed out waiting for its map canvas against the long-running dev server; restart development after dependency changes. Actual Cloudflare Free CPU/quota enforcement is not simulated locally and remains to be verified after deployment.
+
+## Missing licence polygons — 2026-09-09
+
+Live API returned 401 usable features, but MapLibre 6's default worker URL `/assets/maplibre-gl-worker.mjs` returned Pages HTML. The source workers stayed pending and no polygons rendered. Earlier canvas-only smoke checks did not catch this; the earlier full map smoke failure was an early symptom, not merely a stale development server.
+
+Explicitly importing the worker with Vite `?worker&url` now bundles its dependencies, emits a hashed JavaScript asset, and includes it in the PWA precache. `npm run build` and `scripts/map-render-smoke.mjs` pass. The new regression check verifies a JavaScript worker response and actual rendered official-fill features both online and after offline reload.

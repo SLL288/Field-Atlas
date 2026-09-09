@@ -1,5 +1,8 @@
 import {useEffect,useRef} from 'react';
 import * as maplibregl from 'maplibre-gl';
+import mapWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
+// Bundle the worker and its imports; Pages must serve JavaScript, not its HTML fallback.
+maplibregl.setWorkerUrl(mapWorkerUrl);
 import * as turf from '@turf/turf';
 import type {Feature,FeatureCollection} from 'geojson';
 import type {Language} from './i18n';
