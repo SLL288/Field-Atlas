@@ -120,3 +120,5 @@ The repository now includes a Cloudflare backend and a Pages API bridge. Follow 
 ## Satellite basemap
 
 On the Map, use the **Basemap** selector to switch between Street map and Satellite. The choice persists on this browser; switching preserves the viewport and geometry overlays. Satellite mode uses the public Esri World Imagery raster service, with provider attribution and brighter licence outlines. Image dates/resolution vary; it is not live imagery. Tiles are fetched directly from the provider only when selected, without a backend API key or R2 writes. No satellite tile downloading or service-worker offline cache is implemented. Esri service availability and [provider terms](https://www.arcgis.com/home/item.html?id=10df2279f9684e4a9f6a7f08febac2a9) apply.
+
+Geometry recovery now retains known valid polygon parts and unions overlapping valid components, with explicit partial-coverage warnings. See [geometry recovery](docs/GEOMETRY_REPAIR.md) for the measured reduction from 98 to 91 excluded records and deployment requirements.

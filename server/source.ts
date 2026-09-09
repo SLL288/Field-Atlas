@@ -42,7 +42,7 @@ export async function collect(resources:Record<string,Resource>,request:(url:str
 
 export function prepareGeometry(normalized:FeatureCollection){
  const features:Feature[]=[];const quarantined:{id:string;license_number:string;reason:string;feature:Feature}[]=[];
- let cleaned=0;
+ let cleaned=0,repaired=0,partial=0;
  for(const original of normalized.features){
   try{
    let f=structuredClone(original);
@@ -51,8 +51,37 @@ export function prepareGeometry(normalized:FeatureCollection){
    if(JSON.stringify(f.geometry)!==JSON.stringify(original.geometry)){f.properties={...f.properties,geometry_normalization:'Removed duplicate/collinear positions',source_geometry:original.geometry};cleaned++;}
    validate({type:'FeatureCollection',features:[f]},true);
    features.push(f);
-  }catch(e){quarantined.push({id:String(original.properties?.id),license_number:String(original.properties?.license_number),reason:e instanceof Error?e.message:String(e),feature:original});}
+  }catch(e){
+   try{const f=repairSourcePolygon(original);validate({type:'FeatureCollection',features:[f]},true);features.push(f);repaired++;if(f.properties?.geometry_partial)partial++;}
+   catch{quarantined.push({id:String(original.properties?.id),license_number:String(original.properties?.license_number),reason:e instanceof Error?e.message:String(e),feature:original});}
+  }
  }
  if(!features.length||features.length<normalized.features.length*.7)throw Error('More than 30% of source geometries invalid; update rejected.');
- return {data:{type:'FeatureCollection',features} as FeatureCollection,quarantined,cleaned};
+ return {data:{type:'FeatureCollection',features} as FeatureCollection,quarantined,cleaned,repaired,partial};
+}
+
+// Only recover known polygon interiors. Never buffer points/lines or invent missing corners.
+export function repairSourcePolygon(original:Feature):Feature{
+ const g=original.geometry;if(g.type!=='Polygon'&&g.type!=='MultiPolygon')throw Error('Not a polygon.');
+ turf.coordEach(original,p=>{if(!Number.isFinite(p[0])||!Number.isFinite(p[1])||p[0]<-12||p[0]>-7||p[1]<4||p[1]>9)throw Error('Coordinates out of range.');});
+ const polygons=g.type==='Polygon'?[g.coordinates]:g.coordinates;
+ const parts:Feature<import('geojson').Polygon>[]=[];let dropped=0,closed=0;
+ for(const rings of polygons){
+  const clean:import('geojson').Position[][]=[];
+  for(let index=0;index<rings.length;index++){
+   const ring=rings[index];const unique=new Set(ring.map(p=>JSON.stringify(p.slice(0,2))));
+   if(unique.size<3){dropped++;if(index===0){if(rings.length>1)throw Error('Degenerate shell with holes.');break;}continue;}
+   const copy=ring.map(p=>[...p]);if(copy[0][0]!==copy.at(-1)![0]||copy[0][1]!==copy.at(-1)![1]){copy.push([...copy[0]]);closed++;}clean.push(copy);
+  }
+  if(clean.length){const part=turf.cleanCoords(turf.polygon(clean));validate(turf.featureCollection([part]),true);parts.push(part);}
+ }
+ if(!parts.length)throw Error('Too few distinct vertices to recover an area.');
+ // Union already-valid components only; self-crossing rings remain quarantined.
+ const union=parts.length>1?turf.union(turf.featureCollection(parts)):parts[0];if(!union)throw Error('No polygon area.');
+ validate(turf.featureCollection([union]),true);
+ const steps=['Normalized valid polygon components'];if(parts.length>1)steps.push('Unioned polygon components');if(dropped)steps.push('Omitted '+dropped+' zero-area components/rings');if(closed)steps.push('Closed '+closed+' rings');
+ return {...original,geometry:union.geometry,properties:{...original.properties,source_geometry:original.geometry,geometry_normalization:steps.join('; '),geometry_repaired:true,geometry_partial:dropped>0,geometry_repair_warning:dropped?'Recovered known polygon areas only. Degenerate source parts cannot define an area; boundary coverage remains incomplete.':'Overlapping valid polygon components were normalized without inferring missing boundary vertices.'}};
+}
+export function geometryWarning(excluded:number,repaired:number,partial:number){
+ return excluded||repaired?`${excluded} source records remain excluded. ${repaired} polygon records recovered; ${partial} have incomplete parts. Overlap covers known valid areas only.`:null;
 }

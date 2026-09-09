@@ -68,3 +68,7 @@ Explicitly importing the worker with Vite `?worker&url` now bundles its dependen
 Added Street map / Satellite selector with browser persistence, bilingual labels, imagery attribution, and brighter licence outlines. Raster layers switch below vector overlays without recreating the map. Satellite tiles load only when selected and are not added to the service-worker offline cache.
 
 Passed production build and `scripts/satellite-smoke.mjs`: actual Esri tile response, rendered licence polygons, unchanged center/zoom, persistence after reload, Chinese selector and mobile width. `scripts/map-render-smoke.mjs` also passed online/offline polygon rendering. Safari location-provider behavior was not changed or verified on the user's device.
+
+## Conservative geometry recovery — 2026-09-09
+
+Reprocessing the locally cached 499-source-record snapshot produced 408 usable features, 91 quarantined, 7 recovered, 6 partial. Added tests for degenerate component recovery with source retention/no mutation, union of overlapping valid components without area double counting, and rejection of insufficient/out-of-range/self-crossing coordinates. See GEOMETRY_REPAIR.md for limitations and backend rollout.

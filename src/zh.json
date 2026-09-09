@@ -248,5 +248,7 @@
   "Location access is blocked. Allow Location in this site’s browser settings and enable Location Services for your browser in device settings, then try again.": "定位权限被阻止。请在浏览器的网站设置中允许定位，并在设备设置中为浏览器开启定位服务，然后重试。",
   "Your device could not determine its location. Enable Location Services, check your connection or move outdoors, then try again.": "设备无法确定当前位置。请开启定位服务、检查网络连接或移至室外，然后重试。",
   "Location request timed out. Check Location Services and your connection, then try again or enter coordinates manually.": "定位请求超时。请检查定位服务和网络连接，然后重试，或手动输入坐标。",
-  "The device returned an invalid location. Please try again.": "设备返回的坐标无效，请重试。"
+  "The device returned an invalid location. Please try again.": "设备返回的坐标无效，请重试。",
+  "Recovered known polygon areas only. Degenerate source parts cannot define an area; boundary coverage remains incomplete.": "仅恢复已知多边形区域。退化的源数据部分无法确定面积，边界覆盖仍不完整。",
+  "Overlapping valid polygon components were normalized without inferring missing boundary vertices.": "已对相互重叠的有效多边形部分进行规范化，未推测或补造缺失的边界点。"
 }

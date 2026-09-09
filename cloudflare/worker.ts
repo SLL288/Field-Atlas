@@ -1,7 +1,7 @@
 import {DurableObject} from 'cloudflare:workers';
 import {timingSafeEqual} from 'node:crypto';
 import {Archive,HttpError,hash} from './archive';
-import {collect,verifyUpdate,INITIAL,type Resource} from '../server/source';
+import {collect,verifyUpdate,geometryWarning,INITIAL,type Resource} from '../server/source';
 import {empty} from '../shared/geo';
 import {recognizeHandwriting} from '../server/handwriting';
 import {MAX_ACTIVITY_BYTES} from '../shared/activity';
@@ -83,7 +83,7 @@ export class Atlas extends DurableObject<Env>{
     return {body:parsed,etag:response.headers.get('etag')||undefined,modified:response.headers.get('last-modified')||undefined};
    });
    verifyUpdate(next.data,old.data.features.length);const digest=hash(JSON.stringify(next.data));const now=new Date().toISOString();
-   const current={data:next.data,meta:{source_url:INITIAL,source_hash:digest,feature_count:next.data.features.length,source_feature_count:next.sourceCount,excluded_feature_count:next.quarantined.length,cleaned_feature_count:next.cleaned,geometry_warning:next.quarantined.length?`${next.quarantined.length} source records have invalid polygon geometry and are excluded. Overlap coverage is incomplete.`:null,last_checked_at:checked,last_successful_update_at:now,content_changed_at:digest===old.meta.source_hash?old.meta.content_changed_at:now,coverage:'All public Active Licenses type partitions; applications and unmapped records excluded.'}};
+   const current={data:next.data,meta:{source_url:INITIAL,source_hash:digest,feature_count:next.data.features.length,source_feature_count:next.sourceCount,excluded_feature_count:next.quarantined.length,cleaned_feature_count:next.cleaned,repaired_feature_count:next.repaired,partial_feature_count:next.partial,geometry_warning:geometryWarning(next.quarantined.length,next.repaired,next.partial),last_checked_at:checked,last_successful_update_at:now,content_changed_at:digest===old.meta.source_hash?old.meta.content_changed_at:now,coverage:'All public Active Licenses type partitions; applications and unmapped records excluded.'}};
    await this.env.FILES.put('mme/resources.json',JSON.stringify(next.resources));
    await this.env.FILES.put('mme/quarantined.json',JSON.stringify(next.quarantined));
    if(oldObj)await this.env.FILES.put('mme/last-known-good.json',JSON.stringify(old));

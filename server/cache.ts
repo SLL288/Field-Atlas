@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {empty,kml} from '../shared/geo';
-import {collect,verifyUpdate,INITIAL,type Resource} from './source';
+import {collect,verifyUpdate,geometryWarning,INITIAL,type Resource} from './source';
 import type {FeatureCollection} from 'geojson';
 export const INTERVAL=6*60*60*1000;
 const directory=path.resolve(process.env.DATA_DIR||'data');
@@ -49,7 +49,7 @@ export function sync(force=false){
   try{
    const next=await collect(current.resources,request);verifyUpdate(next.data,current.data.features.length);
    const hash=createHash('sha256').update(JSON.stringify(next.data)).digest('hex');
-   const nextCache:Cache={...next,meta:{source_url:INITIAL,source_hash:hash,feature_count:next.data.features.length,source_feature_count:next.sourceCount,excluded_feature_count:next.quarantined.length,cleaned_feature_count:next.cleaned,geometry_warning:next.quarantined.length?next.quarantined.length+' source records have invalid polygon geometry and are excluded. Overlap coverage is incomplete.':null,last_checked_at:current.meta.last_checked_at,last_successful_update_at:new Date().toISOString(),content_changed_at:hash===current.meta.source_hash?current.meta.content_changed_at:new Date().toISOString(),coverage:'All public Active Licenses type partitions; applications and unmapped records excluded.'}};
+   const nextCache:Cache={...next,meta:{source_url:INITIAL,source_hash:hash,feature_count:next.data.features.length,source_feature_count:next.sourceCount,excluded_feature_count:next.quarantined.length,cleaned_feature_count:next.cleaned,repaired_feature_count:next.repaired,partial_feature_count:next.partial,geometry_warning:geometryWarning(next.quarantined.length,next.repaired,next.partial),last_checked_at:current.meta.last_checked_at,last_successful_update_at:new Date().toISOString(),content_changed_at:hash===current.meta.source_hash?current.meta.content_changed_at:new Date().toISOString(),coverage:'All public Active Licenses type partitions; applications and unmapped records excluded.'}};
    // Persist coherent data and metadata before swapping the in-memory snapshot.
    await persist(nextCache);
    current=nextCache;

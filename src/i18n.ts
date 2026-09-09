@@ -11,6 +11,8 @@ export function translator(language:Language){
   const text=String(value??'');if(language==='en')return text;
   const key=text.trim();const translated=(zh as Record<string,string>)[key];
   if(translated)return text.replace(key,translated);
+  const repaired=key.match(/^(\d+) source records remain excluded\. (\d+) polygon records recovered; (\d+) have incomplete parts\. Overlap covers known valid areas only\.$/);
+  if(repaired)return `${repaired[1]} 条源记录仍被排除；已恢复 ${repaired[2]} 条多边形记录，其中 ${repaired[3]} 条仍有不完整部分。重叠计算仅覆盖已知有效区域。`;
   const excluded=key.match(/^(\d+) source records have invalid polygon geometry and are excluded\. Overlap coverage is incomplete\.$/);
   if(excluded)return excluded[1]+' 条源记录的多边形无效，已被排除。重叠检查覆盖不完整。';
   if(key.startsWith('Cannot read coordinate row: '))return '无法读取此坐标行：'+key.slice('Cannot read coordinate row: '.length);
