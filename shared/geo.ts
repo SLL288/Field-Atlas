@@ -55,6 +55,7 @@ export function overlap(user:FeatureCollection,official:FeatureCollection){
  const hits:Feature[]=[];const pieces:Feature[]=[];const polygons=user.features.filter(f=>['Polygon','MultiPolygon'].includes(f.geometry.type));const total=polygons.length>1?turf.area(turf.union(turf.featureCollection(polygons) as never)!):polygons.length?turf.area(polygons[0]):0;
  for(const f of user.features){
   for(const l of official.features){
+   if(l.properties?.geometry_reference===true)continue;
    if(!turf.booleanIntersects(f,l))continue;
    if(!hits.includes(l))hits.push(l);
    if(['Polygon','MultiPolygon'].includes(f.geometry.type)&&['Polygon','MultiPolygon'].includes(l.geometry.type)){const p=turf.intersect(turf.featureCollection([f,l]) as never);if(p)pieces.push(p);}

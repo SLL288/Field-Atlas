@@ -28,7 +28,7 @@ export default function MapView({language,official,user,overlap,selected,onSelec
  function update(){
   const m=map.current;if(!m?.getLayer('overlap-fill'))return;
   for(const name of ['official','user','overlap'] as const)(m.getSource(name) as maplibregl.GeoJSONSource)?.setData(latest.current[name]);
-  for(const id of ['official-fill','official-line','official-point','user-fill','user-line','user-point','overlap-fill']){
+  for(const id of ['official-fill','official-line','official-point','official-reference-line','official-reference-point','user-fill','user-line','user-point','overlap-fill']){
    const key=id.startsWith('official')?'official':id==='user-fill'?'polygons':id==='user-line'?'lines':id==='user-point'?'points':'overlap';
    m.setLayoutProperty(id,'visibility',latest.current.visible[key]===false?'none':'visible');
   }
@@ -40,14 +40,16 @@ export default function MapView({language,official,user,overlap,selected,onSelec
   m.on('style.load',()=>{
    for(const name of ['official','user','overlap'] as const)m.addSource(name,{type:'geojson',data:latest.current[name]});
    m.addLayer({id:'official-fill',type:'fill',source:'official',paint:{'fill-color':'#b7842c','fill-opacity':0.28}});
-   m.addLayer({id:'official-line',type:'line',source:'official',paint:{'line-color':'#95661b','line-width':1.3}});
-   m.addLayer({id:'official-point',type:'circle',source:'official',filter:['==',['geometry-type'],'Point'],paint:{'circle-color':'#95661b','circle-radius':6}});
+   m.addLayer({id:'official-line',type:'line',source:'official',filter:['!=',['get','geometry_reference'],true],paint:{'line-color':'#95661b','line-width':1.3}});
+   m.addLayer({id:'official-point',type:'circle',source:'official',filter:['all',['==',['geometry-type'],'Point'],['!=',['get','geometry_reference'],true]],paint:{'circle-color':'#95661b','circle-radius':6}});
+   m.addLayer({id:'official-reference-line',type:'line',source:'official',filter:['==',['get','geometry_reference'],true],paint:{'line-color':'#b05dcc','line-width':3,'line-dasharray':[2,2]}});
+   m.addLayer({id:'official-reference-point',type:'circle',source:'official',filter:['all',['==',['geometry-type'],'Point'],['==',['get','geometry_reference'],true]],paint:{'circle-color':'#b05dcc','circle-radius':6,'circle-stroke-color':'#fff','circle-stroke-width':2}});
    m.addLayer({id:'user-fill',type:'fill',source:'user',filter:['==',['geometry-type'],'Polygon'],paint:{'fill-color':'#187fbc','fill-opacity':0.3}});
    m.addLayer({id:'user-line',type:'line',source:'user',filter:['==',['geometry-type'],'LineString'],paint:{'line-color':'#126ba4','line-width':4}});
    m.addLayer({id:'user-point',type:'circle',source:'user',filter:['==',['geometry-type'],'Point'],paint:{'circle-color':'#167baa','circle-radius':7,'circle-stroke-color':'#fff','circle-stroke-width':2}});
    m.addLayer({id:'overlap-fill',type:'fill',source:'overlap',paint:{'fill-color':'#e34736','fill-opacity':0.65}});
    const select=(e:maplibregl.MapLayerMouseEvent)=>{const f=e.features?.[0];if(f){const p=f.properties;const real=latest.current.official.features.find(x=>String(x.properties?.id)===String(p.id));if(real)latest.current.onSelect(real);}};
-   m.on('click','official-fill',select);m.on('click','official-point',select);m.on('click','official-line',select);
+   m.on('click','official-fill',select);m.on('click','official-point',select);m.on('click','official-line',select);m.on('click','official-reference-line',select);m.on('click','official-reference-point',select);
    update();updateBasemap();
    if(latest.current.user.features.length)m.fitBounds(turf.bbox(latest.current.user) as [number,number,number,number],{padding:70,maxZoom:16});
   });

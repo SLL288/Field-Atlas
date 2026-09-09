@@ -7,3 +7,5 @@
 .archive-notice{font-size:12px;background:#e9eddf}.archive-help{display:block;margin-top:14px}
 
 .basemap-switch{position:absolute;top:12px;left:12px;margin:0;padding:8px 10px;background:#fffef5f2;border-radius:7px;box-shadow:0 2px 8px #0002;min-width:155px;font-size:11px}.basemap-switch select{margin-top:3px;padding:6px 9px;min-height:36px;font-size:13px}.imagery-note{position:absolute;top:92px;left:12px;right:60px;max-width:340px;padding:7px 10px;border-radius:5px;background:#fffef5ee;font-size:11px;pointer-events:none}.map-status{top:145px}
+
+.map-legend{flex-wrap:wrap;max-width:calc(100% - 24px)}.map-legend span:nth-child(4){color:#85409c}

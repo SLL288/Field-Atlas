@@ -29,7 +29,7 @@ test('KML escapes hostile properties; invalid geometry and record loss rejected'
 });
 test('normalization preserves metadata, quarantines unusable source polygons',()=>{
  const valid={...box,properties:{id:'1',code:'CLA',owner:'Example',assets:[{name:'Gold'}],extra:'retained'}};
- const invalid={...box,properties:{id:'2'},geometry:{type:'Polygon' as const,coordinates:[[[-10,6],[-10,6]]]}};
+ const invalid={...box,properties:{id:'2'},geometry:{type:'Polygon' as const,coordinates:[[[-100,6],[-100,6]]]}};
  const r=prepareGeometry(normalize(turf.featureCollection([valid,{...valid,properties:{...valid.properties,id:'3'}},{...valid,properties:{...valid.properties,id:'4'}},invalid])));
  assert.equal(r.data.features.length,3);assert.equal(r.quarantined.length,1);assert.equal(r.data.features[0].properties?.source_data.extra,'retained');assert.equal(r.data.features[0].properties?.commodity,'Gold');assert.equal(r.data.features[0].properties?.county,undefined);
 });

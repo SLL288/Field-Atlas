@@ -72,3 +72,7 @@ Passed production build and `scripts/satellite-smoke.mjs`: actual Esri tile resp
 ## Conservative geometry recovery — 2026-09-09
 
 Reprocessing the locally cached 499-source-record snapshot produced 408 usable features, 91 quarantined, 7 recovered, 6 partial. Added tests for degenerate component recovery with source retention/no mutation, union of overlapping valid components without area double counting, and rejection of insufficient/out-of-range/self-crossing coordinates. See GEOMETRY_REPAIR.md for limitations and backend rollout.
+
+## Reference points and lines — 2026-09-09
+
+The remaining 91 collapsed polygon records convert to 2 reference points and 89 two-coordinate reference lines. All 499 records in the cached snapshot are renderable, with zero full exclusions; area coverage remains incomplete. Added tests for distinct-coordinate conversion, original-geometry retention and exclusion from intersection/area results. Passed 26 tests, frontend build, Cloudflare check/bundle/runtime smoke. Browser regression uses `/tmp/atlas-reference-fixture.json` generated with `prepareGeometry` from the local cached data.

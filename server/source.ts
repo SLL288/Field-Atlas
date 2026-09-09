@@ -42,7 +42,7 @@ export async function collect(resources:Record<string,Resource>,request:(url:str
 
 export function prepareGeometry(normalized:FeatureCollection){
  const features:Feature[]=[];const quarantined:{id:string;license_number:string;reason:string;feature:Feature}[]=[];
- let cleaned=0,repaired=0,partial=0;
+ let cleaned=0,repaired=0,partial=0,referencePoints=0,referenceLines=0;
  for(const original of normalized.features){
   try{
    let f=structuredClone(original);
@@ -53,11 +53,14 @@ export function prepareGeometry(normalized:FeatureCollection){
    features.push(f);
   }catch(e){
    try{const f=repairSourcePolygon(original);validate({type:'FeatureCollection',features:[f]},true);features.push(f);repaired++;if(f.properties?.geometry_partial)partial++;}
-   catch{quarantined.push({id:String(original.properties?.id),license_number:String(original.properties?.license_number),reason:e instanceof Error?e.message:String(e),feature:original});}
+   catch{
+    try{const f=referenceGeometry(original);features.push(f);if(f.geometry.type==='Point'||f.geometry.type==='MultiPoint')referencePoints++;else referenceLines++;}
+    catch{quarantined.push({id:String(original.properties?.id),license_number:String(original.properties?.license_number),reason:e instanceof Error?e.message:String(e),feature:original});}
+   }
   }
  }
  if(!features.length||features.length<normalized.features.length*.7)throw Error('More than 30% of source geometries invalid; update rejected.');
- return {data:{type:'FeatureCollection',features} as FeatureCollection,quarantined,cleaned,repaired,partial};
+ return {data:{type:'FeatureCollection',features} as FeatureCollection,quarantined,cleaned,repaired,partial,referencePoints,referenceLines};
 }
 
 // Only recover known polygon interiors. Never buffer points/lines or invent missing corners.
@@ -82,6 +85,23 @@ export function repairSourcePolygon(original:Feature):Feature{
  const steps=['Normalized valid polygon components'];if(parts.length>1)steps.push('Unioned polygon components');if(dropped)steps.push('Omitted '+dropped+' zero-area components/rings');if(closed)steps.push('Closed '+closed+' rings');
  return {...original,geometry:union.geometry,properties:{...original.properties,source_geometry:original.geometry,geometry_normalization:steps.join('; '),geometry_repaired:true,geometry_partial:dropped>0,geometry_repair_warning:dropped?'Recovered known polygon areas only. Degenerate source parts cannot define an area; boundary coverage remains incomplete.':'Overlapping valid polygon components were normalized without inferring missing boundary vertices.'}};
 }
-export function geometryWarning(excluded:number,repaired:number,partial:number){
+export function geometryWarning(excluded:number,repaired:number,partial:number,referencePoints=0,referenceLines=0){
+ if(referencePoints||referenceLines)return `${excluded} records excluded. ${referencePoints} records shown as reference points and ${referenceLines} as reference lines; these do not define licence areas. ${partial} polygon records have incomplete parts. Area overlap coverage remains incomplete.`;
  return excluded||repaired?`${excluded} source records remain excluded. ${repaired} polygon records recovered; ${partial} have incomplete parts. Overlap covers known valid areas only.`:null;
+}
+
+export function referenceGeometry(original:Feature):Feature{
+ const g=original.geometry;if(g.type!=='Polygon'&&g.type!=='MultiPolygon')throw Error('Not a collapsed polygon.');
+ const rings=g.type==='Polygon'?g.coordinates:g.coordinates.flat();
+ const points:import('geojson').Position[]=[],lines:import('geojson').Position[][]=[];
+ for(const ring of rings){
+  const distinct:import('geojson').Position[]=[];
+  for(const p of ring){if(!Number.isFinite(p[0])||!Number.isFinite(p[1])||p[0]<-12||p[0]>-7||p[1]<4||p[1]>9)throw Error('Coordinates out of range.');if(!distinct.some(v=>v[0]===p[0]&&v[1]===p[1]))distinct.push([...p]);}
+  if(distinct.length===1)points.push(distinct[0]);else if(distinct.length===2)lines.push(distinct);else throw Error('Not a point or two-coordinate line.');
+ }
+ if(points.length&&lines.length)throw Error('Mixed collapsed components require separate review.');
+ const geometry=points.length?(points.length===1?turf.point(points[0]):turf.multiPoint(points)).geometry:lines.length?(lines.length===1?turf.lineString(lines[0]):turf.multiLineString(lines)).geometry:null;
+ if(!geometry)throw Error('Missing coordinates.');
+ const f:Feature={...original,geometry,properties:{...original.properties,source_geometry:original.geometry,geometry_reference:true,geometry_normalization:points.length?'Collapsed polygon shown as supplied point coordinates':'Collapsed polygon shown as supplied two-coordinate line',geometry_repair_warning:'Reference location only. The source does not provide a polygon area; this point or line is excluded from licence overlap checks.'}};
+ validate(turf.featureCollection([f]),true);return f;
 }
